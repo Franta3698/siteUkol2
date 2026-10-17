@@ -1,11 +1,23 @@
 package utb.fai;
 
 public class App {
-
     public static void main(String[] args) {
-        // TODO: Implement input parameter processing
+        if (args.length < 2) {
+            System.out.println("Použití: java -jar app.jar <serverIp> <port>");
+            return;
+        }
 
-        TelnetClient telnetClient = new TelnetClient("127.0.0.1", 23);
-        telnetClient.run(); // run telnet client
+        String serverIp = args[0];
+        int port;
+
+        try {
+            port = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            System.err.println("Chyba: Port musí být celé číslo.");
+            return;
+        }
+
+        TelnetClient telnetClient = new TelnetClient(serverIp, port);
+        telnetClient.run();
     }
 }
